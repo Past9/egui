@@ -10,7 +10,7 @@ pub mod storage;
 mod text_agent;
 
 #[cfg(not(any(feature = "glow", feature = "wgpu")))]
-compile_error!("You must enable either the 'glow' or 'wgpu' feature");
+compile_error!("You must enable the 'glow', 'vulkano', or 'wgpu' feature");
 
 mod web_painter;
 

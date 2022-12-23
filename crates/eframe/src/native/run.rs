@@ -313,6 +313,25 @@ fn center_window_pos(
 
 // ----------------------------------------------------------------------------
 /// Run an egui app
+#[cfg(feature = "vulkano")]
+mod vulkano_integration {
+    use super::*;
+
+    pub fn run_vulkano(
+        app_name: &str,
+        mut native_options: epi::NativeOptions,
+        app_creator: epi::AppCreator,
+    ) -> Result<()> {
+        todo!()
+    }
+}
+
+#[cfg(feature = "vulkano")]
+pub use vulkano_integration::run_vulkano;
+// ----------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------
+/// Run an egui app
 #[cfg(feature = "glow")]
 mod glow_integration {
     use std::sync::Arc;

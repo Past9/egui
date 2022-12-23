@@ -554,6 +554,10 @@ pub enum WebGlContextOption {
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "serde", serde(rename_all = "snake_case"))]
 pub enum Renderer {
+    /// Use [`egui_vulkano`] renderer for Vulkano
+    #[cfg(feature = "vulkano")]
+    Vulkano,
+
     /// Use [`egui_glow`] renderer for [`glow`](https://github.com/grovesNL/glow).
     #[cfg(feature = "glow")]
     Glow,
@@ -565,6 +569,9 @@ pub enum Renderer {
 
 impl Default for Renderer {
     fn default() -> Self {
+        #[cfg(feature = "vulkano")]
+        return Self::Vulkano;
+
         #[cfg(feature = "glow")]
         return Self::Glow;
 
@@ -573,14 +580,18 @@ impl Default for Renderer {
         return Self::Wgpu;
 
         #[cfg(not(feature = "glow"))]
+        #[cfg(not(feature = "vulkano"))]
         #[cfg(not(feature = "wgpu"))]
-        compile_error!("eframe: you must enable at least one of the rendering backend features: 'glow' or 'wgpu'");
+        compile_error!("eframe: you must enable at least one of the rendering backend features: 'glow', 'vulkano', or 'wgpu'");
     }
 }
 
 impl std::fmt::Display for Renderer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            #[cfg(feature = "vulkano")]
+            Self::Vulkano => "vulkano".fmt(f),
+
             #[cfg(feature = "glow")]
             Self::Glow => "glow".fmt(f),
 

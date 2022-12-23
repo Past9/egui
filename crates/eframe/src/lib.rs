@@ -193,6 +193,12 @@ pub fn run_native(
     );
 
     match renderer {
+        #[cfg(feature = "vulkano")]
+        Renderer::Vulkano => {
+            tracing::debug!("Using the vulkano renderer");
+            native::run::run_vulkano(app_name, native_options, app_creator)
+        }
+
         #[cfg(feature = "glow")]
         Renderer::Glow => {
             tracing::debug!("Using the glow renderer");
