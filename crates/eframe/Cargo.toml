@@ -40,6 +40,8 @@ default_fonts = ["egui/default_fonts"]
 ## Use [`glow`](https://github.com/grovesNL/glow) for painting, via [`egui_glow`](https://github.com/emilk/egui/tree/master/crates/egui_glow).
 glow = ["dep:glow", "dep:egui_glow", "dep:glutin"]
 
+vulkano = ["dep:vulkano"]
+
 ## Enable saving app state to disk.
 persistence = [
   "directories-next",
@@ -83,6 +85,9 @@ egui_glow = { version = "0.20.0", path = "../egui_glow", optional = true, defaul
 glow = { version = "0.11", optional = true }
 ron = { version = "0.8", optional = true, features = ["integer128"] }
 serde = { version = "1", optional = true, features = ["derive"] }
+
+egui_vulkano = { version = "0.20.0", path = "../egui_vulkano", optional = true, default-features = false }
+vulkano = { version = "0.32.3", optional = true }
 
 # -------------------------------------------
 # native:
